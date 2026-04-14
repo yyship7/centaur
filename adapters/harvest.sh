@@ -109,4 +109,18 @@ else
 fi
 
 echo -e "${GREEN}📥 收割完成${NC}"
-echo "   记得 cd ~/symbiosis && git add -A && git commit && git push"
+
+# 自动 commit + push（如果有变更）
+cd "$REPO_DIR"
+if [ -n "$(git status --porcelain)" ]; then
+    git add -A
+    # commit message 带日期和收割的文件摘要
+    CHANGED=$(git diff --cached --name-only | head -5 | sed 's|^|  |')
+    TOTAL=$(git diff --cached --name-only | wc -l | tr -d ' ')
+    git commit -m "evolution: $(date '+%Y-%m-%d') 认知回流 (${TOTAL} 条)
+${CHANGED}"
+    git push
+    echo -e "${GREEN}✅ 已 commit + push${NC}"
+else
+    echo "   没有新内容需要收割"
+fi
