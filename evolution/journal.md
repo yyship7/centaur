@@ -10,3 +10,10 @@
 - 重新定义 Evolution：从"变更日志"升级为"认知系统"，是整个框架的心脏
 - 删除 sync.sh 脚本方案，改为 AI 自适配：AI 自己读原文、自己判断身份、自己转换格式
 - 新增 adapters/guide.md（通用引导词）+ Skill 模板（CodeBuddy / OpenClaw）
+- Identity 拆分为通用原则 + playbooks 工具箱
+- 重大定位调整：Symbiosis 从"替代平台"转为"跨平台内核"
+  - 执行和记忆管理利用各平台原生能力（AutoDream / Heartbeat / 自进化）
+  - Symbiosis 专注跨平台认知汇聚和人格一致性
+  - Soul 砍掉执行细节，聚焦内核定义
+  - Evolution 增加跨平台回流协议、整理机制、容量控制
+  - inject.sh 支持 CodeBuddy / Claude Code / OpenClaw / Hermes 四平台

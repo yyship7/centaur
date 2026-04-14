@@ -1,15 +1,14 @@
 #!/bin/bash
 
 # Symbiosis - 平台注入脚本
-# 把 Soul + Identity 的实际内容拼接成各平台能直接读的文件
+# 把 Soul + Identity + 成熟 Playbooks 注入到各平台的规则目录
 #
 # 用法：
-#   ./inject.sh codebuddy              # 注入到 CodeBuddy 全局 Rules
-#   ./inject.sh claude                  # 注入到 Claude Code 全局 CLAUDE.md
-#   ./inject.sh openclaw                # 注入到 OpenClaw 工作区
 #   ./inject.sh all                     # 注入到所有已支持的平台
-#
-# clone 仓库后跑一次；Soul/Identity 更新后重新跑一次。
+#   ./inject.sh codebuddy               # 只注入 CodeBuddy
+#   ./inject.sh claude                  # 只注入 Claude Code
+#   ./inject.sh openclaw                # 只注入 OpenClaw
+#   ./inject.sh hermes                  # 只注入 Hermes Agent
 
 set -e
 
@@ -17,17 +16,16 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-RED='\033[0;31m'
 NC='\033[0m'
 
-# 拼接 Soul + 所有 Identity 的通用原则（README.md）
+# 拼接完整内核：Soul + Identity 通用原则 + 成熟 Playbooks + 成熟 Frameworks
+# 附带 Symbiosis 仓库绝对路径，让 AI 知道去哪回流知识
 assemble() {
     echo "# ============================================"
     echo "# Symbiosis - Digital Self"
     echo "# 自动生成于 $(date '+%Y-%m-%d %H:%M:%S')"
-    echo "# 源仓库：$REPO_DIR"
-    echo "# 更新方式：修改源仓库后重新运行 inject.sh"
+    echo "# Symbiosis 仓库路径：$REPO_DIR"
+    echo "# 知识回流路径：$REPO_DIR/evolution/"
     echo "# ============================================"
     echo ""
 
@@ -38,40 +36,61 @@ assemble() {
         [ -f "$f" ] && cat "$f" && echo "" && echo "---" && echo ""
     done
 
-    # Identity 通用原则（每个 identity 的 README.md 或顶层 .md）
+    # Identity 通用原则
     echo "# ========== Identities =========="
     echo ""
     for d in "$REPO_DIR"/identities/*/; do
-        if [ -f "$d/README.md" ]; then
-            cat "$d/README.md"
-            echo ""
-            echo "---"
-            echo ""
-        fi
+        [ -f "$d/README.md" ] && cat "$d/README.md" && echo "" && echo "---" && echo ""
     done
     for f in "$REPO_DIR"/identities/*.md; do
         [ -f "$f" ] && cat "$f" && echo "" && echo "---" && echo ""
     done
 
-    # 成熟的 frameworks
+    # 成熟的 Playbooks（状态为 🟢 或 🔵）
+    local has_pb=false
+    for d in "$REPO_DIR"/identities/*/playbooks/; do
+        [ -d "$d" ] || continue
+        for f in "$d"*.md; do
+            [ -f "$f" ] || continue
+            if grep -q "状态：.*🟢\|状态：.*🔵" "$f" 2>/dev/null; then
+                has_pb=true
+                break 2
+            fi
+        done
+    done
+    if [ "$has_pb" = true ]; then
+        echo "# ========== 成熟的 Playbooks =========="
+        echo ""
+        for d in "$REPO_DIR"/identities/*/playbooks/; do
+            [ -d "$d" ] || continue
+            for f in "$d"*.md; do
+                [ -f "$f" ] || continue
+                if grep -q "状态：.*🟢\|状态：.*🔵" "$f" 2>/dev/null; then
+                    cat "$f" && echo "" && echo "---" && echo ""
+                fi
+            done
+        done
+    fi
+
+    # 成熟的 Frameworks
     local fw_dir="$REPO_DIR/evolution/frameworks"
     if [ -d "$fw_dir" ]; then
         local has_fw=false
         for f in "$fw_dir"/*.md; do
             [ "$(basename "$f")" = "README.md" ] && continue
             [ -f "$f" ] || continue
-            if grep -q "状态：.*🟢\|状态：.*🔵\|状态：.*⚡" "$f" 2>/dev/null; then
+            if grep -q "状态：.*🟢\|状态：.*🔵" "$f" 2>/dev/null; then
                 has_fw=true
                 break
             fi
         done
         if [ "$has_fw" = true ]; then
-            echo "# ========== 已验证的方法论 =========="
+            echo "# ========== 已验证的方法论（跨身份） =========="
             echo ""
             for f in "$fw_dir"/*.md; do
                 [ "$(basename "$f")" = "README.md" ] && continue
                 [ -f "$f" ] || continue
-                if grep -q "状态：.*🟢\|状态：.*🔵\|状态：.*⚡" "$f" 2>/dev/null; then
+                if grep -q "状态：.*🟢\|状态：.*🔵" "$f" 2>/dev/null; then
                     cat "$f" && echo "" && echo "---" && echo ""
                 fi
             done
@@ -96,13 +115,11 @@ inject_claude() {
 inject_openclaw() {
     local target="$HOME/.openclaw/workspace"
     mkdir -p "$target"
-    # Soul → SOUL.md
+    # Soul 核心原则（去掉协作关系部分）→ SOUL.md
     cat "$REPO_DIR"/soul/principles.md > "$target/SOUL.md"
-    echo -e "${GREEN}✅ OpenClaw SOUL.md${NC} → $target/SOUL.md"
     # Preferences → USER.md
     cat "$REPO_DIR"/soul/preferences.md > "$target/USER.md"
-    echo -e "${GREEN}✅ OpenClaw USER.md${NC} → $target/USER.md"
-    # Identity 通用原则 → AGENTS.md
+    # Identity + Playbooks → AGENTS.md
     {
         for d in "$REPO_DIR"/identities/*/; do
             [ -f "$d/README.md" ] && cat "$d/README.md" && echo "" && echo "---" && echo ""
@@ -111,22 +128,37 @@ inject_openclaw() {
             [ -f "$f" ] && cat "$f" && echo "" && echo "---" && echo ""
         done
     } > "$target/AGENTS.md"
-    echo -e "${GREEN}✅ OpenClaw AGENTS.md${NC} → $target/AGENTS.md"
+    echo -e "${GREEN}✅ OpenClaw${NC} → SOUL.md + USER.md + AGENTS.md"
+}
+
+inject_hermes() {
+    local target="$HOME/.hermes/memories"
+    mkdir -p "$target"
+    # Hermes 的 MEMORY.md 有 2200 字符限制，只注入 Soul 核心
+    head -c 2200 "$REPO_DIR"/soul/principles.md > "$target/MEMORY.md"
+    # USER.md 有 1375 字符限制，注入偏好摘要
+    head -c 1375 "$REPO_DIR"/soul/preferences.md > "$target/USER.md"
+    echo -e "${GREEN}✅ Hermes Agent${NC} → MEMORY.md + USER.md（受字符限制截断）"
+    echo "   Hermes 的 Skills 自进化机制会自动从工作中学习，无需注入 Playbooks"
 }
 
 case "${1:-}" in
     codebuddy) inject_codebuddy ;;
     claude)    inject_claude ;;
     openclaw)  inject_openclaw ;;
+    hermes)    inject_hermes ;;
     all)
         inject_codebuddy
         inject_claude
         inject_openclaw
+        inject_hermes
         ;;
     *)
-        echo "用法: $0 <codebuddy|claude|openclaw|all>"
+        echo "用法: $0 <codebuddy|claude|openclaw|hermes|all>"
         exit 1
         ;;
 esac
 
-echo -e "${GREEN}🧠 注入完成。Soul + Identity 已就位。${NC}"
+echo ""
+echo -e "${GREEN}🧠 注入完成${NC}"
+echo "   知识回流路径：$REPO_DIR/evolution/"
