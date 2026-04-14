@@ -15,19 +15,24 @@ Task ──产出──→ Evolution（心脏）
 ```
 
 - **Soul** — 你是谁，恒定的内核（被 Evolution 慢慢改变）
-- **Identity** — 你的某个侧面/角色（被 Evolution 慢慢丰富）
-- **Task** — 某个身份下的具体项目（不在本 repo 中，各项目自治）
+- **Identity** — 你的角色 + 工具箱（通用原则 + 可选 playbooks）
+- **Task** — 具体项目 + 从工具箱里选中的 playbook（不在本 repo 中，各项目自治）
 - **Evolution** — 活的知识流，推动整个系统演进的引擎
 
 ## 目录结构
 
 ```
 soul/                           ← 稳定的你
-  principles.md                 ← 核心原则（思维方式、做事原则、沟通风格）
+  principles.md                 ← 核心原则（思维方式、做事原则、协作关系）
   preferences.md                ← 偏好习惯（技术、工作、学习）
 
 identities/                     ← 你的角色
-  engineer.md                   ← 工程师
+  engineer/                     ← 工程师
+    README.md                   ← 通用工程原则
+    playbooks/                  ← 可选工作流程（按项目性质选用）
+      harness-engineering.md    ← 正式交付：多 Agent 七阶段
+      spike-and-validate.md     ← 技术攻关：快速验证假设
+      explore-and-learn.md      ← 纯探索：自由试错
   writer.md                     ← 写作者
   learner.md                    ← 学习者
 
