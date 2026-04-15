@@ -1,11 +1,11 @@
-# 🧠 Symbiosis - 数字体内核
+# 🐴 Centaur - 数字体内核
 
-> 跨平台的"数字体内核"。各平台的 Agent 是手和脚，Symbiosis 是大脑。
+> 人机融合体。在任何平台上都能从第一天带着自己的认知入场。
 
 ## 定位
 
 ```
-                    Symbiosis（内核）
+                    Centaur（内核）
                     ┌─────────────┐
                     │ Soul        │ ← 你是谁
                     │ Identity    │ ← 你的角色 + 能力
@@ -18,7 +18,7 @@
                Code               Agent
           │        │       │       │        │
           └────────┴───────┴───────┴────────┘
-                           │ 跨平台认知回流
+                           │ 认知回流
                            ▼
                       Evolution
 ```
@@ -38,50 +38,42 @@ Task ──产出──→ Evolution（心脏）
 ```
 
 - **Soul** — 你是谁，恒定的内核
-- **Identity** — 你的角色 + 可选 playbooks
-- **Task** — 具体项目（不在本 repo 中，各项目自治，从 playbooks 中选用工作流程）
-- **Evolution** — 跨平台认知系统，各平台的认知在这里汇聚、验证、毕业
+- **Identity** — 你的角色 + 经验证的工作流程
+- **Task** — 具体项目（不在本 repo 中，各项目自治）
+- **Evolution** — 跨平台认知系统。insights 有生命状态：🌱新鲜 → 🔥验证中 → 🪨沉淀
 
 ## 目录结构
 
 ```
 soul/                           ← 稳定的你
-  principles.md                 ← 核心原则、协作关系、知识回流规则
+  principles.md                 ← 核心原则、协作关系
   preferences.md                ← 偏好习惯
 
 identities/                     ← 你的角色
   engineer/                     ← 工程师
     README.md                   ← 通用工程原则
-    harness-engineering.md      ← 从实践中长出来的：多 Agent 七阶段
+    harness-engineering.md      ← 从实践中长出来的流程
   writer.md                     ← 写作者
   learner.md                    ← 学习者
 
-evolution/                      ← 跨平台认知系统（心脏）
-  journal.md                    ← 演进日志
-  insights/                     ← 洞察与判断
+evolution/                      ← 认知系统（心脏）
+  insights/                     ← 认知沉淀（按日期，三行格式+状态）
   frameworks/                   ← 方法论（归属待定）
   open-questions/               ← 待验证假设
+  journal.md                    ← 演进日志
 
 adapters/                       ← 平台注入
   inject.sh                     ← 注入脚本
-  README.md                     ← 各平台利用指引
 ```
-
-## 设计原则
-
-1. **Symbiosis 是内核，不是执行引擎** — 执行靠各平台原生能力
-2. **各平台是手脚，内核是大脑** — 利用 Claude Code 的 AutoDream、OpenClaw 的 Heartbeat、Hermes 的自进化
-3. **跨平台认知回流** — 各平台产生的洞察汇聚到 Evolution，成熟后反哺 Soul / Identity
-4. **Git 是家** — 仓库是唯一真相源，`inject.sh` 把内核注入到各平台
 
 ## 使用方式
 
 ```bash
 # 1. Clone
-git clone git@github.com:yyship7/symbiosis.git ~/symbiosis
+git clone git@github.com:yyship7/centaur.git ~/centaur
 
 # 2. 注入到各平台
-cd ~/symbiosis && ./adapters/inject.sh all
+cd ~/centaur && ./adapters/inject.sh all
 
-# 3. 日常：各平台产生认知 → 回流到 evolution/ → git push 同步
+# 3. 日常：对话结束时 AI 追加 insight → git commit + push
 ```
