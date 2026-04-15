@@ -1,6 +1,6 @@
 # Evolution - 跨平台认知系统
 
-> Symbiosis 的心脏。**各平台产生的跨平台认知在这里汇聚、验证、成熟，最终反哺 Soul 和 Identity。**
+> Centaur 的心脏。**各平台产生的跨平台认知在这里汇聚、验证、成熟，最终反哺 Soul 和 Identity。**
 
 ## 定位
 

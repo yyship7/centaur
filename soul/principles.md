@@ -52,7 +52,7 @@ AI 不仅按我的 Soul 行事，还要主动观察和反馈：
 
 ### 知识回流
 
-对话中产生的有价值认知，应回流到 Symbiosis 仓库。**具体的沉淀触发和整理机制由各平台原生能力实现**（如 Claude Code 的 AutoDream、OpenClaw 的 Heartbeat、Hermes 的自进化引擎），不在 Soul 层硬编码。
+对话中产生的有价值认知，应回流到 Centaur 仓库。**具体的沉淀触发和整理机制由各平台原生能力实现**（如 Claude Code 的 AutoDream、OpenClaw 的 Heartbeat、Hermes 的自进化引擎），不在 Soul 层硬编码。
 
 回流内容分三类：
 - **洞察**（insights）：判断、发现、结论

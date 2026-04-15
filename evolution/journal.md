@@ -11,9 +11,9 @@
 - 删除 sync.sh 脚本方案，改为 AI 自适配：AI 自己读原文、自己判断身份、自己转换格式
 - 新增 adapters/guide.md（通用引导词）+ Skill 模板（CodeBuddy / OpenClaw）
 - Identity 拆分为通用原则 + playbooks 工具箱
-- 重大定位调整：Symbiosis 从"替代平台"转为"跨平台内核"
+- 重大定位调整：Centaur 从"替代平台"转为"跨平台内核"
   - 执行和记忆管理利用各平台原生能力（AutoDream / Heartbeat / 自进化）
-  - Symbiosis 专注跨平台认知汇聚和人格一致性
+  - Centaur 专注跨平台认知汇聚和人格一致性
   - Soul 砍掉执行细节，聚焦内核定义
   - Evolution 增加跨平台回流协议、整理机制、容量控制
   - inject.sh 支持 CodeBuddy / Claude Code / OpenClaw / Hermes 四平台
@@ -23,4 +23,4 @@
   - structure-reader-vs-creator: 擅长解读结构，创建结构是新肌肉
   - learning-through-action: 真实认知方式是先试后想，不是先规划
 - Soul 首次填入真实内容：做事原则（速度优先）、思维方式（在行动中思考）
-- Symbiosis 定位确认：外部认知系统，弥补大脑不擅长的持久化/结构化/闭环能力
+- Centaur 定位确认：外部认知系统，弥补大脑不擅长的持久化/结构化/闭环能力

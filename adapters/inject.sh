@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Symbiosis - 平台注入脚本
+# Centaur - 平台注入脚本
 # 把 Soul + Identity + 成熟 Playbooks 注入到各平台的规则目录
 #
 # 用法：
@@ -19,15 +19,15 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 # 拼接完整内核：Soul + Identity 通用原则 + 成熟 Playbooks + 成熟 Frameworks
-# 附带 Symbiosis 仓库绝对路径，让 AI 知道去哪回流知识
+# 附带 Centaur 仓库绝对路径，让 AI 知道去哪回流知识
 assemble() {
     local git_remote=$(cd "$REPO_DIR" && git remote get-url origin 2>/dev/null || echo "未配置")
     local git_branch=$(cd "$REPO_DIR" && git branch --show-current 2>/dev/null || echo "unknown")
 
     echo "# ============================================"
-    echo "# Symbiosis - Digital Self"
+    echo "# Centaur - Digital Self"
     echo "# 自动生成于 $(date '+%Y-%m-%d %H:%M:%S')"
-    echo "# Symbiosis 仓库路径：$REPO_DIR"
+    echo "# Centaur 仓库路径：$REPO_DIR"
     echo "# Git 远程仓库：$git_remote"
     echo "# Git 分支：$git_branch"
     echo "# ============================================"
