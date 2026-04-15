@@ -21,14 +21,24 @@ NC='\033[0m'
 # 拼接完整内核：Soul + Identity 通用原则 + 成熟 Playbooks + 成熟 Frameworks
 # 附带 Symbiosis 仓库绝对路径，让 AI 知道去哪回流知识
 assemble() {
+    local git_remote=$(cd "$REPO_DIR" && git remote get-url origin 2>/dev/null || echo "未配置")
+    local git_branch=$(cd "$REPO_DIR" && git branch --show-current 2>/dev/null || echo "unknown")
+
     echo "# ============================================"
     echo "# Symbiosis - Digital Self"
     echo "# 自动生成于 $(date '+%Y-%m-%d %H:%M:%S')"
     echo "# Symbiosis 仓库路径：$REPO_DIR"
+    echo "# Git 远程仓库：$git_remote"
+    echo "# Git 分支：$git_branch"
     echo "# ============================================"
     echo ""
-    echo "# ========== 知识回流指引 =========="
+    echo "# ========== Symbiosis 系统说明 =========="
     echo ""
+    echo "# 这是一个跨平台的数字体内核系统。你正在读的内容来自 Symbiosis 仓库。"
+    echo "# 仓库路径：$REPO_DIR"
+    echo "# Git：$git_remote (branch: $git_branch)"
+    echo "#"
+    echo "# 知识回流方式："
     echo "# 当对话中产生了有跨项目/跨平台复用价值的认知时，"
     echo "# 写入当前工作区的 .symbiosis/ 暂存目录（不需要跨目录操作）："
     echo "#"
@@ -36,8 +46,11 @@ assemble() {
     echo "# .symbiosis/frameworks/名称.md             ← 可复用方法论"
     echo "# .symbiosis/open-questions/名称.md         ← 待验证假设"
     echo "#"
-    echo "# 这些文件会被 harvest.sh 定期收割到 Symbiosis 仓库的 evolution/ 中。"
+    echo "# 这些文件会被 harvest.sh 收割到 Symbiosis 仓库的 evolution/ 中，"
+    echo "# 自动 git commit + push 到远程仓库，形成完整的认知演进记录。"
+    echo "#"
     echo "# 只沉淀跨项目/跨平台有价值的认知，不沉淀项目特定的细节。"
+    echo "# 对话结束时，如果有值得沉淀的内容，主动提醒我。"
     echo ""
     echo "---"
     echo ""
